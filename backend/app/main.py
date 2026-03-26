@@ -1,9 +1,7 @@
-from fastapi import FastAPI
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from app.security import hash_password, verify_password, create_access_token
-from app.users import fake_users_db
+from backend.app.security import hash_password, verify_password, create_access_token
+from backend.app.users import fake_users_db
 
 app = FastAPI(
     title="PAP Security Backend",
@@ -19,6 +17,10 @@ class User(BaseModel):
 @app.get("/")
 def root():
     return {"message": "Backend running"}
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 # REGISTO
 @app.post("/register")
@@ -49,17 +51,3 @@ def login(user: User):
     token = create_access_token({"sub": user.username})
 
     return {"access_token": token}
-
-app = FastAPI(
-    title="PAP Security Backend",
-    description="Backend para deteção de logins suspeitos",
-    version="0.1.0"
-)
-
-@app.get("/")
-def root():
-    return {"message": "Backend running"}
-
-@app.get("/health")
-def health():
-    return {"status": "ok"}
