@@ -5,7 +5,7 @@ from jose import jwt
 # Configuração do hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Chave secreta (depois podemos melhorar isto)
+# Chave secreta
 SECRET_KEY = "supersecretkey"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
